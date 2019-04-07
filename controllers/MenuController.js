@@ -4,12 +4,13 @@ module.exports = class MenuController {
   constructor(){
     this.mainMenuQuestions = [
   {
-   type: "list",
+    type: "list",
     name: "mainMenuChoice",
     message: "Please choose from an option below: ",
     choices: [
       "Add new contact",
-      "Date",
+      "View all contacts",
+      "Get today's date",
       "Exit"
     ]
   }
@@ -23,7 +24,10 @@ this.book = new ContactController();
           case "Add new contact":
             this.addContact();
             break;
-          case "Date":
+          case"View all contacts":
+          this.getContacts();
+          break;
+          case "Get today's date":
             this.getDate();
             break;
           case "Exit":
@@ -52,6 +56,17 @@ this.book = new ContactController();
         this.main();
       });
     });
+  }
+  getContacts(){
+    this.book.getContacts().then((contacts) =>{
+      for(let contact of contacts){
+        console.log();
+      }
+      this.main();
+    }).catch((err)=>{
+      console.log(err);
+      this.main();
+    }); 
   }
 
   getDate(){
